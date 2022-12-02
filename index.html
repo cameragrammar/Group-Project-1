@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NBA Team Tracker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
+</head>
+
+<body>
 
     <!--
     <p>Hello NBA</p>
@@ -16,38 +18,42 @@
     -->
     <nav class="navbar has-shadow is-white">
         <div class="navbar-brand">
-        <a class="navbar-item">
-        <img src="Assets/NBA.JPG" alt="site logo" style="max-height: 120px" class="py-2 px-2">
-        </a>
-        <a class="navbar-burger"></a>
+            <a class="navbar-item">
+                <img src="Assets/NBA.JPG" alt="site logo" style="max-height: 120px" class="py-2 px-2">
+            </a>
+            <a class="navbar-burger"></a>
 
         </div>
 
         <div class="select is-medium is-primary my-6">
             <select>
-              <option>Select NBA Team</option>
-              <option>Only Utah Jazz, sorry</option>
+                <option>Select NBA Team</option>
+                <option>Only Utah Jazz, sorry</option>
             </select>
-          </div>
+        </div>
 
         <div class="navbar-menu" ID="nav-links">
             <div class="navbar-end">
-                <a class="navbar-item">My Saved Teams</a>
-                <a class="navbar-item">My Saved Games</a>
+                <a class="navbar-item is-size-4">Saved Teams</a>
+                <a class="navbar-item is-size-4">Saved Games</a>
             </div>
         </div>
     </nav>
-    
-    
-    <div class="columns">
-        <div class="column is-one-thirds">
-          First column
-        </div>
-        <div class="column is-two-thirds">
-            Second column
-          </div>
 
-    <!--
+    <div class="columns is-vcentered is-mobile">
+            <div class="column is-4">
+            <div class="card">
+          <p class="bd-notification is-primary">Game Schedule</p>
+        </div>
+        </div>
+        <div class="column is-mobile">
+            <div class="card">
+          <p class="bd-notification is-primary">Statistics</p>
+        </div>
+        </div>
+      </div>
+
+            <!--
     
     <h2 class="is-size-2 px-4 mx-5 pl-5">TICKETS??</h2>
     <h3 class="is-size-4">I guess</h3>
@@ -72,6 +78,7 @@
     </div>
 	
 -->
-    <script src="index.js"></script>
-  </body>
+            <script src="index.js"></script>
+</body>
+
 </html>

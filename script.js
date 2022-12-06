@@ -71,7 +71,11 @@ function getPlayersApi(playerName, teamId) {
         console.log(result);
         for (let player in result.data) {
             if (result.data.teamId)
+
+    }
+
         }
+
     })
 }
 
@@ -79,5 +83,9 @@ function getPlayersApi(playerName, teamId) {
 getTeamsApi();
 getScheduleApi(29);
 getPlayersApi(playerName, 0);
+
 console.log(teamArr);
+
+console.log(teamArr);
+
 

@@ -1,5 +1,25 @@
 
-var DropButton = document.getElementById('drop-box');
+var PlayerSearch = document.querySelector('#drop-box-player input').value;
+var SearchButton = document.getElementById('searchbutton');
+const PlayerApi = "https://www.balldontlie.io/api/v1/players";
+
+function getPlayersApi(playerName) {
+    fetch(PlayerApi + "?search=" + playerName)
+    .then((response) => response.json())
+    .then((result) => {
+        console.log(result.data)
+        for (var i = 0; i < result.data.length; i++) {
+            PlayerSearch = result.data[i].last_name;
+        }
+    })
+}
+
+SearchButton.addEventListener('click', function() {
+    var PlayerSearch = document.querySelector('#drop-box-player input').value;
+    getPlayersApi(PlayerSearch)
+})
+
+
 
 function DropButton() {
     fetch('https://www.balldontlie.io/api/v1/teams')
@@ -61,19 +81,6 @@ function getScheduleApi(teamId) {
     })
 }
 
-//Get players, issue below
-//can't get players per team? Will need to find a way to display all players on a certain team without querying the entire db
-function getPlayersApi(playerName) {
-    fetch(ballApi + "players?search=" + playerName)
-        .then((response) => response.json())
-        .then((result) => {
-            console.log(result);
-            for (let player in result.data) {
-                if (result.data.teamId) {
-                }
-            }
-        })
-    }
 
 //testing - these console log the results
 getTeamsApi();
@@ -81,5 +88,6 @@ getScheduleApi(29);
 // getPlayersApi(playerName, 0);
 
 console.log(teamArr);
+
 
 

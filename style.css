@@ -6,5 +6,15 @@
   background-image: url(Assets/basketball-court.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 120px
+  min-height: 120px;
+
+}
+
+a:hover img {
+  border: none !important;
+  display: block;
+  }
+
+#search-results {
+  visibility: hidden;
 }

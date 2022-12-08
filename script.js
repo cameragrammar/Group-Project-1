@@ -70,7 +70,7 @@ function getPlayersApi(playerName, teamId) {
     {
         console.log(result);
         for (let player in result.data) {
-            if (result.data.teamId)
+            if (result.data.teamId) {
 
     }
 
@@ -78,6 +78,7 @@ function getPlayersApi(playerName, teamId) {
 
     })
 }
+
 
 //testing - these console log the results
 getTeamsApi();

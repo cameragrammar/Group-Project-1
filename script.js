@@ -63,28 +63,22 @@ function getScheduleApi(teamId) {
 
 //Get players, issue below
 //can't get players per team? Will need to find a way to display all players on a certain team without querying the entire db
-function getPlayersApi(playerName, teamId) {
+function getPlayersApi(playerName) {
     fetch(ballApi + "players?search=" + playerName)
-    .then((response) => response.json())
-    .then((result) => 
-    {
-        console.log(result);
-        for (let player in result.data) {
-            if (result.data.teamId)
-
+        .then((response) => response.json())
+        .then((result) => {
+            console.log(result);
+            for (let player in result.data) {
+                if (result.data.teamId) {
+                }
+            }
+        })
     }
-
-        }
-
-    })
-}
 
 //testing - these console log the results
 getTeamsApi();
 getScheduleApi(29);
-getPlayersApi(playerName, 0);
-
-console.log(teamArr);
+// getPlayersApi(playerName, 0);
 
 console.log(teamArr);
 

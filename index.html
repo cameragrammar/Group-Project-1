@@ -26,26 +26,33 @@
 
 
 
-        <div class="select is-medium is-primary my-6" id="drop-box">
-            <select>
-                <option>Select NBA Player</option>
-                <option>Player1</option>
-            </select>
+        <div class="search-area" id="drop-box-player">
+            <input class="input my-5" type="text" placeholder="Type Player Name">
+            <button class="searchButton" id="searchbutton">Search</button>
         </div>
 
         <div class="navbar-menu" ID="nav-links">
             <div class="navbar-end">
-                <a class="navbar-item is-size-5 has-text-white">Saved Teams</a>
-                <a class="navbar-item is-size-5 has-text-white">Saved Games</a>
+
             </div>
         </div>
     </nav>
+
+    <div class="column is-12">
+        <div class="card px-5 my-5" id="saved-games">
+      <p class="bd-notification is-primary is-size-5">Saved Games</p>
+            </div>
+
+            <div class="column is-12">
+                <div class="card px-5 my-5" id="saved-teams">
+                    <p class="bd-notification is-primary is-size-5">Saved Teams</p>
+                </div>
 
     <div class="columns is-vcentered is-mobile">
             <div class="column is-4">
             <div class="card px-5 my-5">
           <p class="bd-notification is-primary is-size-5">Game Schedule</p>
-          <div class="select is-medium is-primary my-1">
+          <div class="select is-medium is-primary my-1"  id="drop-box-game">
             <select>
                 <option>Select Game</option>
                 <option>Game 1 </option>
@@ -57,7 +64,7 @@
             <div class="card">
           <p class="bd-notification is-primary is-size-5 px-5">Team Stats</p>
           
-          <div class="select is-small is-primary my-1 is-size-5 mx-5">     
+          <div class="select is-small is-primary my-1 is-size-5 mx-5"  id="drop-box-stats">     
             <select>
                 <option>Team Stats</option>
                 <option>Player Stats</option>

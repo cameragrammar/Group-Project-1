@@ -16,5 +16,9 @@ a:hover img {
   }
 
 #search-results {
-  visibility: hidden;
+  display: none;
+}
+
+.noHover{
+  pointer-events: none;
 }

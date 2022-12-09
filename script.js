@@ -2,24 +2,44 @@
 var PlayerSearch = document.querySelector('#drop-box-player input').value;
 var SearchButton = document.getElementById('searchbutton');
 const PlayerApi = "https://www.balldontlie.io/api/v1/players";
+const searchResultBox = document.getElementById("search-results");
+let playerSearchResults = [];
 
 function getPlayersApi(playerName) {
+    let playerObj;
+    let playerData;
+    let newResult;
+    playerSearchResults = [];
     fetch(PlayerApi + "?search=" + playerName)
     .then((response) => response.json())
     .then((result) => {
+        playerData = result.data
         console.log(result.data)
         for (var i = 0; i < result.data.length; i++) {
+            //Playersearch should be updated to the search results box
             PlayerSearch = result.data[i].last_name;
         }
+        playerData.forEach(player => {
+            playerObj = {};
+            playerObj.playerId = player.id;
+            playerObj.playerName = player.first_name + " " + player.last_name;
+            playerObj.teamName = player.team.name;
+            playerSearchResults.push(playerObj);
+            
+            //build and display serach results
+            // newResult = document.createElement("div");
+        })
+        console.log(playerSearchResults);
+        
+        //display all results of the search - should go last
+        searchResultBox.style.display = "block";
     })
 }
 
 SearchButton.addEventListener('click', function() {
     var PlayerSearch = document.querySelector('#drop-box-player input').value;
-    getPlayersApi(PlayerSearch)
+    getPlayersApi(PlayerSearch);
 })
-
-
 
 function DropButton() {
     fetch('https://www.balldontlie.io/api/v1/teams')
@@ -36,10 +56,10 @@ function DropButton() {
     })
 }
 
-//DropButton.addEventListener('click')
-
-//API Link
+//API Links
 const ballApi = "https://www.balldontlie.io/api/v1/";
+const ticketApi = "https://app.ticketmaster.com/discovery/v2/events?";
+const ticketKey = "apikey=YUtofAEqmAbWVA8ezVcGnMFbUZoJeDvh";
 
 //Get Current Date for API > Games Schedule query
 const today = new Date();
@@ -47,6 +67,9 @@ const dateStr = today.getFullYear() + "-" + String(today.getMonth() + 1).padStar
 
 //Array to hold all teams and their IDs from the API. This is currently being console logged
 const teamArr = [];
+
+let eventList;
+const eventOutput = [];
 
 //get all teams, and build the array of teams/ids. This creates an array of objects for reference
 //just need to push this result to the dropdown menu(s)
@@ -81,13 +104,35 @@ function getScheduleApi(teamId) {
     })
 }
 
+//can search by team name, in the event search api
+function getTicketApi(teamName) {
+    fetch(ticketApi + ticketKey + "&keyword=" + teamName + "&promoterId=695&size=10")
+    .then((response) => response.json())
+    .then((result) => {
+        eventList = result._embedded.events;
+        eventList.sort(function(a, b) {
+            return new Date(a.dates.start.localDate) - new Date(b.dates.start.localDate);
+        });
+        eventList.forEach(event => {
+            console.log(event.name, event.dates.start.localDate, event.url);
+        })
+    })
+}
+
+let playerTeamId;
+let playerId;
+
+searchResultBox.addEventListener('click', event => {
+    selectedPlayerTeam = event.target.teamName;
+    selectedPlayerId = event.target.playerId;
+    getTicketApi(selectedPlayerTeam);
+    // get player stats API with selectedPlayerId
+})
 
 //testing - these console log the results
 getTeamsApi();
 getScheduleApi(29);
 // getPlayersApi(playerName, 0);
+getTicketApi("Jazz");
 
 console.log(teamArr);
-
-
-

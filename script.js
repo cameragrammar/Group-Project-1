@@ -4,6 +4,7 @@ var SearchButton = document.getElementById('searchbutton');
 const PlayerApi = "https://www.balldontlie.io/api/v1/players";
 const searchResultBox = document.getElementById("search-results");
 let playerSearchResults = [];
+var team;
 
 function getPlayersApi(playerName) {
     let playerObj;
@@ -31,7 +32,8 @@ function getPlayersApi(playerName) {
             playerObj.teamName = player.team.name;
             playerSearchResults.push(playerObj);
             if (player.position != "") {
-                output +="<p id = '" + player.id + "' onclick='displayStats()'>" + playerObj.playerName + " " + playerObj.teamName + " </p>";
+                team = player.team.id;
+                output +="<p id = '" + player.id + "' onclick='displayStats()'"+ " team='" + playerObj.teamName + "'>" + playerObj.playerName + " " + playerObj.teamName + " </p>";
             }
             
 
@@ -57,21 +59,36 @@ SearchButton.addEventListener('click', function() {
 function displayStats() {
     var id = event.target.id;
     console.log(id);
+    console.log(event.target);  
     fetch('https://www.balldontlie.io/api/v1/season_averages?player_ids[]=' + id)
     .then((response) => response.json())
     .then((result) => {
         console.log(result);
         var stats = document.querySelector('#player-stats');
         var output = '';
-
+        //output += "<p id='team'> Team: " + team + "</p>";
         output += "<p> Points: " + result.data[0].pts + "</p>";
         output += "<p> Rebounds: " + result.data[0].reb + "</p>";
         output += "<p> Assists: " + result.data[0].ast + "</p>";
-        
-        
+        output += "<p> Steals: " + result.data[0].stl + "</p>";
+        output += "<p> Blocks: " + result.data[0].blk + "</p>";
         stats.innerHTML = output;
+        //getScheduleApi(team);
+    })
+    fetch('https://www.balldontlie.io/api/v1/players/' + id)
+    .then((response) => response.json())
+    .then((result) => {
+        console.log("team");
+        console.log(result.team.id);
+        var stats = document.querySelector('#team');
+        var output = '';
+        output += " Team: " + result.team.abbreviation;
+        stats.innerHTML = output;
+        getScheduleApi(result.team.id);
     })
 }
+
+
 
 function DropButton() {
     fetch('https://www.balldontlie.io/api/v1/teams')
@@ -133,6 +150,7 @@ function getScheduleApi(teamId) {
             return new Date(a.date) - new Date(b.date);
           });
         console.log(result.data);
+        displaySchedule(result.data);
     })
 }
 
@@ -151,20 +169,29 @@ function getTicketApi(teamName) {
     })
 }
 
+function displaySchedule(data) {
+    var schedule = document.querySelector("#schedule");
+    var output = "";
+    for (var i=0; i < 10; i++) {
+        output += "<p>" + data[i].date + " " + data[i].visitor_team.abbreviation + " VS." + data[i].home_team.abbreviation + "</p>";
+    }
+    schedule.innerHTML = output;
+}
+
 let playerTeamId;
 let playerId;
 
 searchResultBox.addEventListener('click', event => {
     selectedPlayerTeam = event.target.teamName;
     selectedPlayerId = event.target.playerId;
-    getTicketApi(selectedPlayerTeam);
+    //getTicketApi(selectedPlayerTeam);
     // get player stats API with selectedPlayerId
 })
 
 //testing - these console log the results
 getTeamsApi();
-getScheduleApi(29);
+//getScheduleApi(14);
 // getPlayersApi(playerName, 0);
-getTicketApi("Jazz");
+//getTicketApi("Jazz");
 
 console.log(teamArr);

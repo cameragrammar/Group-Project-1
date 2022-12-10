@@ -19,16 +19,28 @@ function getPlayersApi(playerName) {
             //Playersearch should be updated to the search results box
             PlayerSearch = result.data[i].last_name;
         }
+
+        //Hans Code to display search results
+        var results = document.querySelector('#search-results');
+        var output = '';
+
         playerData.forEach(player => {
             playerObj = {};
             playerObj.playerId = player.id;
             playerObj.playerName = player.first_name + " " + player.last_name;
             playerObj.teamName = player.team.name;
             playerSearchResults.push(playerObj);
+            if (player.position != "") {
+                output +="<p id = '" + player.id + "' onclick='displayStats()'>" + playerObj.playerName + " " + playerObj.teamName + " </p>";
+            }
             
+
+
             //build and display serach results
             // newResult = document.createElement("div");
         })
+       //Hans Code to innerHTML display
+        results.innerHTML = output;
         console.log(playerSearchResults);
         
         //display all results of the search - should go last
@@ -40,6 +52,26 @@ SearchButton.addEventListener('click', function() {
     var PlayerSearch = document.querySelector('#drop-box-player input').value;
     getPlayersApi(PlayerSearch);
 })
+
+//Hans Code to Display Stats in player-stats box
+function displayStats() {
+    var id = event.target.id;
+    console.log(id);
+    fetch('https://www.balldontlie.io/api/v1/season_averages?player_ids[]=' + id)
+    .then((response) => response.json())
+    .then((result) => {
+        console.log(result);
+        var stats = document.querySelector('#player-stats');
+        var output = '';
+
+        output += "<p> Points: " + result.data[0].pts + "</p>";
+        output += "<p> Rebounds: " + result.data[0].reb + "</p>";
+        output += "<p> Assists: " + result.data[0].ast + "</p>";
+        
+        
+        stats.innerHTML = output;
+    })
+}
 
 function DropButton() {
     fetch('https://www.balldontlie.io/api/v1/teams')

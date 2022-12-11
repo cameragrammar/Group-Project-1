@@ -3,10 +3,11 @@ var PlayerSearch = document.querySelector('#drop-box-player input').value;
 var SearchButton = document.getElementById('searchbutton');
 const PlayerApi = "https://www.balldontlie.io/api/v1/players";
 
+//Adds API into SearchButton as well as pulling the search results and adding it into the button.
 function getPlayersApi(playerName) {
     fetch(PlayerApi + "?search=" + playerName)
     .then((response) => response.json())
-    .then((result) => {
+    .then((result) =>  {
         console.log(result.data)
         for (var i = 0; i < result.data.length; i++) {
             PlayerSearch = result.data[i].last_name;
@@ -18,8 +19,6 @@ SearchButton.addEventListener('click', function() {
     var PlayerSearch = document.querySelector('#drop-box-player input').value;
     getPlayersApi(PlayerSearch)
 })
-
-
 
 function DropButton() {
     fetch('https://www.balldontlie.io/api/v1/teams')

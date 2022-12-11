@@ -9,17 +9,12 @@ var team;
 function getPlayersApi(playerName) {
     let playerObj;
     let playerData;
-    let newResult;
     playerSearchResults = [];
-    fetch(PlayerApi + "?search=" + playerName)
+    fetch(PlayerApi + "?per_page=100&search=" + playerName)
     .then((response) => response.json())
     .then((result) => {
         playerData = result.data
         console.log(result.data)
-        for (var i = 0; i < result.data.length; i++) {
-            //Playersearch should be updated to the search results box
-            PlayerSearch = result.data[i].last_name;
-        }
 
         //Hans Code to display search results
         var results = document.querySelector('#search-results');
@@ -30,17 +25,16 @@ function getPlayersApi(playerName) {
             playerObj.playerId = player.id;
             playerObj.playerName = player.first_name + " " + player.last_name;
             playerObj.teamName = player.team.name;
+            playerObj.pos = player.position;
+            console.table(playerObj)
             playerSearchResults.push(playerObj);
+            // below causing issues with displaying results as not every player has a position. Maybe this was to find active players only?
             if (player.position != "") {
                 team = player.team.id;
-                output +="<p id = '" + player.id + "' onclick='displayStats()'"+ " team='" + playerObj.teamName + "'>" + playerObj.playerName + " " + playerObj.teamName + " </p>";
+                output += "<p id = '" + player.id + "' onclick='displayStats()'"+ " team='" + playerObj.teamName + "'>" + playerObj.playerName + " " + playerObj.teamName + " </p>";
             }
-            
-
-
-            //build and display serach results
-            // newResult = document.createElement("div");
         })
+
        //Hans Code to innerHTML display
         results.innerHTML = output;
         console.log(playerSearchResults);
@@ -65,15 +59,20 @@ function displayStats() {
     .then((result) => {
         console.log(result);
         var stats = document.querySelector('#player-stats');
-        var output = '';
+        let output = '';
+        if (!result.data) {
         //output += "<p id='team'> Team: " + team + "</p>";
         output += "<p> Points: " + result.data[0].pts + "</p>";
         output += "<p> Rebounds: " + result.data[0].reb + "</p>";
         output += "<p> Assists: " + result.data[0].ast + "</p>";
         output += "<p> Steals: " + result.data[0].stl + "</p>";
         output += "<p> Blocks: " + result.data[0].blk + "</p>";
-        stats.innerHTML = output;
+
         //getScheduleApi(team);
+        } else {
+            output = "<p> No stats to display for the current season </p>"
+        }
+        stats.innerHTML = output;
     })
     fetch('https://www.balldontlie.io/api/v1/players/' + id)
     .then((response) => response.json())
@@ -81,27 +80,10 @@ function displayStats() {
         console.log("team");
         console.log(result.team.id);
         var stats = document.querySelector('#team');
-        var output = '';
+        let output = '';
         output += " Team: " + result.team.abbreviation;
         stats.innerHTML = output;
-        getScheduleApi(result.team.id);
-    })
-}
-
-
-
-function DropButton() {
-    fetch('https://www.balldontlie.io/api/v1/teams')
-    .then((response) => response.json())
-    .then((result) => {
-        result.data.forEach(team => {
-            for (let name in team) {
-                if (team.name =="Jazz"){
-                    console.log(team.id, team.name)
-                }
-            }
-            
-        });
+        getTicketApi(result.team.name);
     })
 }
 
@@ -159,39 +141,26 @@ function getTicketApi(teamName) {
     fetch(ticketApi + ticketKey + "&keyword=" + teamName + "&promoterId=695&size=10")
     .then((response) => response.json())
     .then((result) => {
+        console.log(result)
         eventList = result._embedded.events;
         eventList.sort(function(a, b) {
             return new Date(a.dates.start.localDate) - new Date(b.dates.start.localDate);
         });
-        eventList.forEach(event => {
-            console.log(event.name, event.dates.start.localDate, event.url);
-        })
+        // eventList.forEach(event => {
+        //     console.log(event.name, event.dates.start.localDate, event.url);
+        // })
+        displaySchedule(eventList);
     })
 }
 
 function displaySchedule(data) {
     var schedule = document.querySelector("#schedule");
-    var output = "";
-    for (var i=0; i < 10; i++) {
-        output += "<p>" + data[i].date + " " + data[i].visitor_team.abbreviation + " VS." + data[i].home_team.abbreviation + "</p>";
-    }
+    let output = "";
+    data.forEach(game => {
+        output += "<p><a href='" + game.url + "'>" + game.dates.start.localDate + " " + game.name + "</a></p>";
+    })
     schedule.innerHTML = output;
 }
 
 let playerTeamId;
 let playerId;
-
-searchResultBox.addEventListener('click', event => {
-    selectedPlayerTeam = event.target.teamName;
-    selectedPlayerId = event.target.playerId;
-    //getTicketApi(selectedPlayerTeam);
-    // get player stats API with selectedPlayerId
-})
-
-//testing - these console log the results
-getTeamsApi();
-//getScheduleApi(14);
-// getPlayersApi(playerName, 0);
-//getTicketApi("Jazz");
-
-console.log(teamArr);

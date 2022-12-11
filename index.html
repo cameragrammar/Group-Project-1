@@ -12,17 +12,15 @@
 
 <body>
 
-    <!--
-    <p>Hello NBA</p>
-    <a href = "">Howdy</a>
-    -->
+
     <nav class="navbar has-shadow is-white">
         <div class="navbar-brand">
-            <a class="navbar-item">                
-                <img src="Assets/NBA.JPG" alt="site logo" style="max-height: 120px" class="py-2 px-2">
+            <a class="navbar-item">
+                <img src="Assets/NBA.JPG" alt="site logo" style="max-height: 120px" class="noHover">
                 <a class="navbar-burger"></a>
-            </a>    
+            </a>
         </div>
+
 
 
 
@@ -40,52 +38,52 @@
 
     <div class="column is-12">
         <div class="card px-5 my-5" id="search-results">
-      <p class="bd-notification is-primary is-size-5">Search Results</p>
-      </div>
+            <p class="bd-notification is-primary is-size-5">Search Results</p>
+        </div>
 
-    
+
         <div class="card px-5 my-5" id="saved-games">
             <button class="clear is-pulled-right" id="clear-games">Clear</button>
-      <p class="bd-notification is-primary is-size-5">Saved Games</p>
-      </div>
-            </div>
-
+            <p class="bd-notification is-primary is-size-5">Saved Games</p>
             
-                <div class="card px-5 my-5" id="saved-teams">
-                    <button class="clear is-pulled-right" id="clear-games">Clear</button>
-                    <p class="bd-notification is-primary is-size-5">Saved Teams</p>
-                    
-                </div>
+        </div>
+    </div>
+
+
+    <div class="card px-5 my-5" id="saved-players">
+        <button class="clear is-pulled-right" id="clear-games">Clear</button>
+        <p class="bd-notification is-primary is-size-5">Saved Players</p>
+
+    </div>
 
     <div class="columns is-vcentered is-mobile">
-            <div class="column is-4">
+        <div class="column is-4">
             <div class="card px-5 my-5">
-          <p class="bd-notification is-primary is-size-5">Game Schedule</p>
-          
-          <div class="select is-medium is-primary my-1"  id="drop-box-game">
-            <select>
-                <option>Select Game</option>
-                <option>Game 1 </option>
-            </select>
-        </div>
-        </div>
+                <p class="bd-notification is-primary is-size-5">Game Schedule</p>
+                <div id="schedule"> </div>
+                <input type="checkbox">
+                Save Game
+              </label>
+
+            </div>
         </div>
         <div class="column is-mobile">
             <div class="card">
-          <p class="bd-notification is-primary is-size-5 px-5">Team Stats</p>
-          
-          <div class="select is-small is-primary my-1 is-size-5 mx-5"  id="drop-box-stats">     
-            <select>
-                <option>Team Stats</option>
-                <option>Player Stats</option>
-            </select>
-        </div>
-        </div>
-        </div>
-        </div>
-      </div>
+                <p class="bd-notification is-primary is-size-5 px-5">Player Current Season Stats</p>
+                <p id="team"></p>
+                <div id="player-stats"></div>
+                <label class="checkbox px-5">
+                    <input type="checkbox">
+                    Save Player
+                  </label>
 
-            <!--
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <!--
     
     <h2 class="is-size-2 px-4 mx-5 pl-5">TICKETS??</h2>
     <h3 class="is-size-4">I guess</h3>
@@ -110,7 +108,7 @@
     </div>
 	
 -->
-            <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

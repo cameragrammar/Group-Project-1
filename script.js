@@ -31,7 +31,7 @@ function getPlayersApi(playerName) {
             // below causing issues with displaying results as not every player has a position. Maybe this was to find active players only?
             if (player.position != "") {
                 team = player.team.id;
-                output += "<p id = '" + player.id + "' onclick='displayStats()'"+ " team='" + playerObj.teamName + "'>" + playerObj.playerName + " " + playerObj.teamName + " </p>";
+                output += "<p id = '" + player.id + "' onclick='displayStats()'"+ " team='" + playerObj.teamName + "'>" + playerObj.playerName + " | " + playerObj.teamName + " </p>";
             }
         })
 
@@ -60,7 +60,7 @@ function displayStats() {
         console.log(result);
         var stats = document.querySelector('#player-stats');
         let output = '';
-        if (!result.data) {
+        if ( result.data.length >= 1) {
         //output += "<p id='team'> Team: " + team + "</p>";
         output += "<p> Points: " + result.data[0].pts + "</p>";
         output += "<p> Rebounds: " + result.data[0].reb + "</p>";

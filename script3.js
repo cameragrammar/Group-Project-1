@@ -33,12 +33,15 @@ function getPlayersApi(playerName) {
             playerObj.pos = player.position;
             console.table(playerObj)
             playerSearchResults.push(playerObj);
-            let playerFullName = par
             // below causing issues with displaying results as not every player has a position. Maybe this was to find active players only?
             if (player.position != "") {
                 team = player.team.id;
-                //  output += "<p id = '" + player.id + "' onclick='displayStats()'"+ " team='" + playerObj.teamName + "'>" + playerObj.playerName + " | " + playerObj.teamName + " </p>";
-                output += `<p id =${player.id} onclick=displayStats("${player.last_name}") team=${playerObj.teamName}>${playerObj.playerName} | ${playerObj.teamName}</p>`;
+                // output += "<p id = '" + player.id + "' onclick='displayStats()'"+ " team='" + playerObj.teamName + "'>" + playerObj.playerName + " | " + playerObj.teamName + " </p>";
+                output += `<p id =${player.id} onclick='displayStats("${player.first_name + " " + player.last_name}")
+                ' team=${playerObj.teamName}
+
+                '>${playerObj.playerName} | ${playerObj.teamName}</p>`;
+                // output += `<p id =${player.id} onclick=displayStats("${player.last_name}") team=${playerObj.teamName}>${playerObj.playerName} | ${playerObj.teamName}</p>`;
             }
         })
 

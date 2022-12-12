@@ -3,8 +3,6 @@ var PlayerSearch = document.querySelector('#drop-box-player input').value;
 var SearchButton = document.getElementById('searchbutton');
 const PlayerApi = "https://www.balldontlie.io/api/v1/players";
 const searchResultBox = document.getElementById("search-results");
-var SavePlayer = document.getElementById("Player-stats");
-var SaveTeam = document.getElementById("schedule");
 let playerSearchResults = [];
 var team;
 let playerResultsArr = JSON.parse(localStorage.getItem("savedPlayers")) || [];
@@ -13,7 +11,6 @@ let saveCheckbox = document.getElementById("save-checkbox");
 let savedPlayers = document.getElementById("saved-players");
 console.log(saveCheckbox)
 
-//Adds API into SearchButton as well as pulling the search results and adding it into the button.
 function getPlayersApi(playerName) {
     let playerObj;
     let playerData;
@@ -36,12 +33,15 @@ function getPlayersApi(playerName) {
             playerObj.pos = player.position;
             console.table(playerObj)
             playerSearchResults.push(playerObj);
-            let playerFullName = par
             // below causing issues with displaying results as not every player has a position. Maybe this was to find active players only?
             if (player.position != "") {
                 team = player.team.id;
-                //  output += "<p id = '" + player.id + "' onclick='displayStats()'"+ " team='" + playerObj.teamName + "'>" + playerObj.playerName + " | " + playerObj.teamName + " </p>";
-                output += `<p id =${player.id} onclick=displayStats("${player.last_name}") team=${playerObj.teamName}>${playerObj.playerName} | ${playerObj.teamName}</p>`;
+                // output += "<p id = '" + player.id + "' onclick='displayStats()'"+ " team='" + playerObj.teamName + "'>" + playerObj.playerName + " | " + playerObj.teamName + " </p>";
+                output += `<p id =${player.id} onclick='displayStats("${player.first_name + " " + player.last_name}")
+                ' team=${playerObj.teamName}
+
+                '>${playerObj.playerName} | ${playerObj.teamName}</p>`;
+                // output += `<p id =${player.id} onclick=displayStats("${player.last_name}") team=${playerObj.teamName}>${playerObj.playerName} | ${playerObj.teamName}</p>`;
             }
         })
 
@@ -172,19 +172,6 @@ function displaySchedule(data) {
         output += "<p><a href='" + game.url + "'>" + game.dates.start.localDate + " " + game.name + "</a></p>";
     })
     schedule.innerHTML = output;
-
-    function SavePlayer(PlayerButton) {
-        const jsonObj = JSON.stringify(PlayerButton);
-        localStorage.setItem("PlayerButton", jsonObj);
-        const str = localStorage.getItem("PlayerButton");
-        const parsedObj = JSON.parse(str);
-        console.log(parsedObj);
-    }
-
-SavePlayer.addEventListener("click", function() {
-getPlayersApi(data);
-})
-
 }
 
 let playerTeamId;

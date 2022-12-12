@@ -3,9 +3,12 @@ var PlayerSearch = document.querySelector('#drop-box-player input').value;
 var SearchButton = document.getElementById('searchbutton');
 const PlayerApi = "https://www.balldontlie.io/api/v1/players";
 const searchResultBox = document.getElementById("search-results");
+var SavePlayer = document.getElementById("Player-stats");
+var SaveTeam = document.getElementById("schedule");
 let playerSearchResults = [];
 var team;
 
+//Adds API into SearchButton as well as pulling the search results and adding it into the button.
 function getPlayersApi(playerName) {
     let playerObj;
     let playerData;
@@ -160,6 +163,19 @@ function displaySchedule(data) {
         output += "<p><a href='" + game.url + "'>" + game.dates.start.localDate + " " + game.name + "</a></p>";
     })
     schedule.innerHTML = output;
+
+    function SavePlayer(PlayerButton) {
+        const jsonObj = JSON.stringify(PlayerButton);
+        localStorage.setItem("PlayerButton", jsonObj);
+        const str = localStorage.getItem("PlayerButton");
+        const parsedObj = JSON.parse(str);
+        console.log(parsedObj);
+    }
+
+SavePlayer.addEventListener("click", function() {
+getPlayersApi(data);
+})
+
 }
 
 let playerTeamId;

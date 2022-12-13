@@ -11,97 +11,63 @@
 </head>
 
 <body>
-
-
     <nav class="navbar has-shadow is-white">
         <div class="navbar-brand">
-            <a class="navbar-item">
+            <a class="navbar-item navbar-start">
                 <img src="Assets/NBA.JPG" alt="site logo" style="max-height: 120px" class="noHover">
-                <a class="navbar-burger"></a>
             </a>
         </div>
 
-
-
-
-        <div class="search-area" id="drop-box-player">
-            <input class="input my-5" type="text" placeholder="Type Player Name">
-            <button class="searchButton" id="searchbutton">Search</button>
+        <div class="search-area navbar-item" id="drop-box-player">
+            <input class="input my-5 mx-2" type="text" placeholder="Type Player Name">
+            <button class="searchButton button" id="searchbutton">Search</button>
         </div>
 
-        <div class="navbar-menu" ID="nav-links">
-            <div class="navbar-end">
-
-            </div>
+        </div>
         </div>
     </nav>
 
     <div class="column is-12">
-        <div class="card px-5 my-5" id="search-results">
+        <div class="card px-5 my-5" id="search-container" style="display:none;">
             <p class="bd-notification is-primary is-size-5">Search Results</p>
+            <div class="card px-5 py-3" id="search-results">
+            </div>
         </div>
-
-
     </div>
 
 
     <div class="card px-5 my-5">
-        <button class="clear is-pulled-right" id="clear-games">Clear</button>
+        <button class="clear is-pulled-right button is-small" id="clear-games">Clear Saved Players</button>
         <p class="bd-notification is-primary is-size-5">Saved Players</p>
-        <div id="saved-players"></div>
+        <div class="card px-5 py-3" id="saved-players"></div>
     </div>
 
-    <div class="columns is-vcentered is-mobile">
+    <div class="columns is-mobile">
         <div class="column is-4">
-            <div class="card px-5 my-5">
+            <div class="card px-5">
                 <p class="bd-notification is-primary is-size-5">Game Schedule - Buy Tickets</p>
-                <div id="schedule"> </div>
-               
-
+                <div id="schedule" class="card px-5 py-3">
+                </div>
             </div>
         </div>
         <div class="column is-mobile">
-            <div class="card">
+            <div class="card px-5">
                 <p class="bd-notification is-primary is-size-5 px-5">Player Current Season Stats</p>
-                <p id="team"></p>
-                <div id="player-stats"></div>
-                <label class="checkbox px-5">
-                    <button id="save-checkbox">
-                    Save Player
-                    </button>
-
+                <div class="card px-5 py-3">
+                    <p id="team"></p>
+                    <div id="player-stats" class="pb-2"></div>
+                    <label class="checkbox px-5">
+                        <button id="save-checkbox" class="button is-small py-2" style="display: none;">
+                            Save Player
+                        </button>
+                </div>
             </div>
         </div>
     </div>
     </div>
     </div>
 
-    <!--
-    
-    <h2 class="is-size-2 px-4 mx-5 pl-5">TICKETS??</h2>
-    <h3 class="is-size-4">I guess</h3>
-    <h4 class="is-size-2 has-text-right">Select a player</h4>
-
-    <p class="is-size-1 is-uppercase is-italic">buy tix!</p>
-    <p class="is-size-3">BUY TICKETS!</p>
-    <p class="has-text-weight-bold">BUY TICKETS!</p>    
-    <p class="has-text-weight-light">BUY TICKETS!</p>    
-
-    <h2 class="title">TITLE</h2>
-    <h3 class="subtitle">Subtitle</h3>
-
-    <section class="section">
-        <p>Rando Texto</p>
-    </section>
-
-    <div class="class">
-        <div class="container">
-            <p>Contained text</p>
-        </div>
-    </div>
-	
--->
-    <script src="script3.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

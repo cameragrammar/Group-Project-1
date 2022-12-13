@@ -37,11 +37,7 @@ function getPlayersApi(playerName) {
     .then((response) => response.json())
     .then((result) => {
         playerData = result.data
-
-        //Hans Code to display search results
-
-        let output = results.innerHTML;
-
+        let output = '';
         playerData.forEach(player => {
             playerObj = {};
             playerObj.playerId = player.id;
@@ -69,7 +65,6 @@ function displayStats(fullName) {
     .then((result) => {
         let output = '';
         if ( result.data.length >= 1) {
-        //output += "<p id='team'> Team: " + team + "</p>";
         output += "<p> Points: " + result.data[0].pts + "</p>";
         output += "<p> Rebounds: " + result.data[0].reb + "</p>";
         output += "<p> Assists: " + result.data[0].ast + "</p>";
